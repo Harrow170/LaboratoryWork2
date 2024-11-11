@@ -1,18 +1,21 @@
+#include "List.h"
+
 //! \brief Структура узла двусвязного списка
 struct NodeList
 {
 	//! \brief Данные узла
-	int data;
+	int Data;
 
 	//! \brief Указатель на предыдущий узел
-	NodeList* prev;
+	NodeList* Prev;
 
 	//! \brief Указатель на следующий узел
-	NodeList* next;
+	NodeList* Next;
 
 	//! \brief Конструктор для узла
-	NodeList(int value) : data(value), prev(nullptr), next(nullptr) {}
+	NodeList(int value) : Data(value), Prev(nullptr), Next(nullptr) {}
 };
+
 //! \brief Функция для добавления элемента в начало списка
 //! \param head Указывает на голову списка
 //! \param data Данные, которые будут добавленны в узел
@@ -47,7 +50,7 @@ void SortNodeList(NodeList*& head);
 //! \brief Функция линейного поиска
 //! \param head Указывает на голову списка
 //! \param data Данные, которые будут добавленны в узел
-bool LinearSearch(NodeList*& head, int data);
+bool LinearSearch(NodeList* head, int data);
 
 //! \brief Функция очистки списка
 //! \param head Указывает на голову списка

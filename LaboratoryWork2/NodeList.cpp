@@ -11,8 +11,9 @@ void AddAtBeggining(NodeList*& head, int data)
 		head = newNodeList;
 		return;
 	}
-	newNodeList->next = head;
-	head->prev = newNodeList;
+
+	newNodeList->Next = head;
+	head->Prev = newNodeList;
 	head = newNodeList;
 }
 
@@ -24,13 +25,15 @@ void AddAtEnd(NodeList*& head, int data)
 		head = newNodeList;
 		return;
 	}
+
 	NodeList* last = head;
-	while (last->next)
+	while (last->Next)
 	{
-		last = last->next;
+		last = last->Next;
 	}
-	last->next = newNodeList;
-	newNodeList->prev = last;
+
+	last->Next = newNodeList;
+	newNodeList->Prev = last;
 }
 
 void RemoveElement(NodeList*& head, int data)
@@ -38,25 +41,30 @@ void RemoveElement(NodeList*& head, int data)
 	NodeList* current = head;
 	while (current)
 	{
-		if (current->data == data)
+		if (current->Data == data)
 		{
-			if (current->prev)
+			if (current->Prev)
 			{
-				current->prev->next = current->next;
+				current->Prev->Next = current->Next;
 			}
+
 			else
 			{
-				head = current->next;
+				head = current->Next;
 			}
-			if (current->next)
+
+			if (current->Next)
 			{
-				current->next->prev = current->prev;
+				current->Next->Prev = current->Prev;
 			}
+
 			delete current;
 			return;
 		}
-		current = current->next;
+
+		current = current->Next;
 	}
+
 	throw runtime_error("Element not found ");
 }
 
@@ -65,21 +73,24 @@ void AddAfter(NodeList*& head, int target, int data)
 	NodeList* current = head;
 	while (current)
 	{
-		if (current->data == target)
+		if (current->Data == target)
 		{
 			NodeList* newNodeList = new NodeList(data);
-			newNodeList->next = current->next;
-			newNodeList->prev = current;
+			newNodeList->Next = current->Next;
+			newNodeList->Prev = current;
 
-			if (current->next)
+			if (current->Next)
 			{
-				current->next->prev = newNodeList;
+				current->Next->Prev = newNodeList;
 			}
-			current->next = newNodeList;
+
+			current->Next = newNodeList;
 			return;
 		}
-		current = current->next;
+
+		current = current->Next;
 	}
+
 	throw runtime_error("Target element not found ");
 }
 
@@ -88,76 +99,88 @@ void AddBefore(NodeList*& head, int target, int data)
 	NodeList* current = head;
 	while (current)
 	{
-		if (current->data == target)
+		if (current->Data == target)
 		{
 			NodeList* newNodeList = new NodeList(data);
-			newNodeList->prev = current->prev;
-			newNodeList->next = current;
+			newNodeList->Prev = current->Prev;
+			newNodeList->Next = current;
 
-			if (current->prev)
+			if (current->Prev)
 			{
-				current->prev->next = newNodeList;
+				current->Prev->Next = newNodeList;
 			}
-			current->prev = newNodeList;
+
+			current->Prev = newNodeList;
 			return;
 		}
-		current = current->next;
+
+		current = current->Next;
 	}
+
 	throw runtime_error("target element not found ");
 }
 
 void SortNodeList(NodeList*& head)
 {
-	if (!head || !head->next)
+	if (!head || !head->Next)
 	{
 		return;
 	}
+
 	NodeList* sorted = nullptr;
 	NodeList* current = head;
 	while (current)
 	{
-		NodeList* next = current->next;
-		if (!sorted || sorted->data >= current->data)
+		NodeList* next = current->Next;
+		if (!sorted || sorted->Data >= current->Data)
 		{
-			current->next = sorted;
-			current->prev = nullptr;
+			current->Next = sorted;
+			current->Prev = nullptr;
 			if (sorted)
 			{
-				sorted->prev = current;
+				sorted->Prev = current;
 			}
+
 			sorted = current;
 		}
+
 		else
 		{
 			NodeList* temp = sorted;
-			while (temp->next && temp->next->data < current->data)
+			while (temp->Next && temp->Next->Data < current->Data)
 			{
-				temp = temp->next;
+				temp = temp->Next;
 			}
-			current->next = temp->next;
-			if (temp->next)
+
+			current->Next = temp->Next;
+			if (temp->Next)
 			{
-				temp->next->prev = current;
+				temp->Next->Prev = current;
 			}
-			temp->next = current;
-			current->prev = temp;
+
+			temp->Next = current;
+			current->Prev = temp;
 		}
+
 		current = next;
 	}
+
 	head = sorted;
 }
 
-bool LinearSearch(NodeList*& head, int data)
+bool LinearSearch(NodeList* head, int data)
 {
 	NodeList* current = head;
 	while (current)
 	{
-		if (current->data == data)
+		if (current->Data == data)
 		{
 			return true;
 		}
-		current = current->next;
+
+		current = current->Next;
 	}
+
 	return false;
 }
 
@@ -166,7 +189,7 @@ void ClearNodeList(NodeList*& head)
 	while (head)
 	{
 		NodeList* temp = head;
-		head = head->next;
+		head = head->Next;
 		delete temp;
 	}
 }

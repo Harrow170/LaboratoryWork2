@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include "NodeList.h"
 #include "NodeLIstItem.h"
+#include <string>
+#include <limits>
 
 using namespace std;
 
@@ -11,9 +13,10 @@ void Display(NodeList*& head)
 	NodeList* current = head;
 	while (current)
 	{
-		cout << current->data << " ";
-		current = current->next;
+		cout << current->Data << " ";
+		current = current->Next;
 	}
+
 	cout << endl;
 }
 
@@ -23,22 +26,28 @@ void Display(NodeList*& head)
 int GetInput(const string& prompt)
 {
 	int value;
-	cout << prompt;
-	cin >> value;
-	return value;
-}
+	string input;
 
-//! \brief функция получения индекса 
-//! \param index показывает индекс элемента
-void GetIndex(int index)
-{
-	if (index != 1)
+	while (true)
 	{
-		cout << "Index found: " << index << endl;
-	}
-	else
-	{
-		cout << "Index not found " << endl;
+		cout << prompt;
+		getline(cin, input);
+
+		try
+		{
+			value = stoi(input);
+			return value;
+		}
+
+		catch (const invalid_argument& e)
+		{
+			cout << "Invalid input. Please enter an integer value.\n";
+		}
+
+		catch (const out_of_range& e)
+		{
+			cout << "Input is out of range. Please enter a valid integer value.\n";
+		}
 	}
 }
 
@@ -72,25 +81,25 @@ int main()
 
 		case 3:
 		{
-			int index = GetInput("Enter index to delete: ");
-			GetIndex(index);
-			RemoveElement(ListHead, index);
+			int value = GetInput("Enter value to delete: ");
+			//GetIndex(index);
+			RemoveElement(ListHead, value);
 			break;
 		}
 
 		case 4:
 		{
-			int index = GetInput("Enter index to add after: ");
+			int target = GetInput("Enter element to add after: ");
 			int value = GetInput("Enter element to add: ");
-			AddAfter(ListHead, index, value);
+			AddAfter(ListHead, target, value);
 			break;
 		}
 
 		case 5:
 		{
-			int index = GetInput("Enter index to add before: ");
+			int target = GetInput("Enter element to add before: ");
 			int value = GetInput("Enter element to add: ");
-			AddBefore(ListHead, index, value);
+			AddBefore(ListHead, target, value);
 			break;
 		}
 
@@ -104,15 +113,23 @@ int main()
 		case 7:
 		{
 			int value = GetInput("Enter a value for a linear search: ");
-			int index = LinearSearch(ListHead, value);
-			GetIndex(index);
+			if (LinearSearch(ListHead, value))
+			{
+				cout << "Element found\n";
+			}
+
+			else
+			{
+				cout << "Element not found\n";
+			}
+
 			break;
 		}
 
 		case 8:
 		{
 			int value = GetInput("Size: ");
-			MeasureInsertionsAndDeletions(value);
+			measureInsertionAndDeletion(value);
 			break;
 		}
 
