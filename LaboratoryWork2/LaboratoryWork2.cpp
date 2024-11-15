@@ -1,16 +1,18 @@
 ﻿#include <iostream>
-#include "NodeList.h"
-#include "NodeLIstItem.h"
+//#include "NodeList.h"
+//#include "NodeLIstItem.h"
 #include <string>
 #include <limits>
+#include "List1.h"
+//#include "Node.h"
 
 using namespace std;
 
 //! \brief Функция вывода списка на экран
 //! \param head Указывает на голову списка
-void Display(NodeList*& head)
+void Display(Node*& head)
 {
-	NodeList* current = head;
+	Node* current = head;
 	while (current)
 	{
 		cout << current->Data << " ";
@@ -53,12 +55,12 @@ int GetInput(const string& prompt)
 
 int main()
 {
-	NodeList* ListHead = nullptr;
+	Node* NodeHead = nullptr;
 
 	while (true)
 	{
 		cout << "Current NodeList:\n ";
-		Display(ListHead);
+		Display(NodeHead);
 		cout << endl;
 
 		int choice = GetInput("Menu: \n 1. Add at beggining\n 2. Add at end\n 3. Remove\n 4. Add after\n 5. Add before\n 6. Sort\n 7. Linnear search\n 8. Operations time\n 0. End\n");
@@ -68,14 +70,14 @@ int main()
 		case 1:
 		{
 			int value = GetInput("Enter element to add at beggining: ");
-			AddAtBeggining(ListHead, value);
+			AddAtBeggining(NodeHead, value);
 			break;
 		}
 
 		case 2:
 		{
 			int value = GetInput("Enter element to add at end: ");
-			AddAtEnd(ListHead, value);
+			AddAtEnd(NodeHead, value);
 			break;
 		}
 
@@ -83,7 +85,7 @@ int main()
 		{
 			int value = GetInput("Enter value to delete: ");
 			//GetIndex(index);
-			RemoveElement(ListHead, value);
+			RemoveElement(NodeHead, value);
 			break;
 		}
 
@@ -91,7 +93,7 @@ int main()
 		{
 			int target = GetInput("Enter element to add after: ");
 			int value = GetInput("Enter element to add: ");
-			AddAfter(ListHead, target, value);
+			AddAfter(NodeHead, target, value);
 			break;
 		}
 
@@ -99,13 +101,13 @@ int main()
 		{
 			int target = GetInput("Enter element to add before: ");
 			int value = GetInput("Enter element to add: ");
-			AddBefore(ListHead, target, value);
+			AddBefore(NodeHead, target, value);
 			break;
 		}
 
 		case 6:
 		{
-			SortNodeList(ListHead);
+			SortNodeList(NodeHead);
 			cout << "Sorted " << endl;
 			break;
 		}
@@ -113,7 +115,7 @@ int main()
 		case 7:
 		{
 			int value = GetInput("Enter a value for a linear search: ");
-			if (LinearSearch(ListHead, value))
+			if (LinearSearch(NodeHead, value))
 			{
 				cout << "Element found\n";
 			}
@@ -126,12 +128,12 @@ int main()
 			break;
 		}
 
-		case 8:
+		/*case 8:
 		{
 			int value = GetInput("Size: ");
 			measureInsertionAndDeletion(value);
 			break;
-		}
+		}*/
 
 		case 0:
 			return 0;
@@ -140,6 +142,6 @@ int main()
 		}
 	}
 
-	ClearNodeList(ListHead);
+	ClearNodeList(NodeHead);
 	return 0;
 }

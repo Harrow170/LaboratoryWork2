@@ -1,57 +1,52 @@
-#include "List.h"
+#include "Node.h"
 
-//! \brief Структура узла двусвязного списка
 struct List
 {
-	//! \brief Данные узла
-	int Data;
+	//! \brief указатель на первый элемент
+	Node* Head;
 
-	//! \brief Указатель на предыдущий узел
-	List* Prev;
+	//! \brief указатель на последний элемент
+	Node* Tail;
 
-	//! \brief Указатель на следующий узел
-	List* Next;
-
-	//! \brief Конструктор для узла
-	List(int value) : Data(value), Prev(nullptr), Next(nullptr) {}
+	List(): Head(nullptr), Tail(nullptr) {}
 };
 
 //! \brief Функция для добавления элемента в начало списка
 //! \param head Указывает на голову списка
 //! \param data Данные, которые будут добавленны в узел
-void AddAtBeggining(List*& head, int data);
+void AddAtBeggining(Node*& head, int data);
 
 //! \brief Функция для добавления элемента в конец списка
 //! \param head Указывает на голову списка
 //! \param data Данные, которые будут добавленны в узел
-void AddAtEnd(List*& head, int data);
+void AddAtEnd(Node*& head, int data);
 
 //! \brief Функция для удаления из списка по значению
 //! \param head Указывает на голову списка
 //! \param data Данные, которые будут добавленны в узел
-void RemoveElement(List*& head, int data);
+void RemoveElement(Node*& head, int data);
 
 //! \brief Функция для добавления элемента после другого
 //! \param head Указывает на голову списка
 //! \param data Данные, которые будут добавленны в узел
 //! \param target Значение узла
-void AddAfter(List*& head, int target, int data);
+void AddAfter(Node*& head, int target, int data);
 
 //! \brief Функция добавления элемента перед другим
 //! \param head Указывает на голову списка
 //! \param data Данные, которые будут добавленны в узел
 //! \param target Значение узла
-void AddBefore(List*& head, int target, int data);
+void AddBefore(Node*& head, int target, int data);
 
 //! \brief Функция сортировки списка
 //! \param head Указывает на голову списка
-void SortNodeList(List*& head);
+void SortNodeList(Node*& head);
 
 //! \brief Функция линейного поиска
 //! \param head Указывает на голову списка
 //! \param data Данные, которые будут добавленны в узел
-bool LinearSearch(List* head, int data);
+bool LinearSearch(Node* head, int data);
 
 //! \brief Функция очистки списка
 //! \param head Указывает на голову списка
-void ClearNodeList(List*& head);
+void ClearNodeList(Node*& head);

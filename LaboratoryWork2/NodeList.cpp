@@ -1,11 +1,12 @@
-#include "NodeLIst.h"
+//#include "NodeLIst.h"
+#include "List1.h"
 #include <stdexcept>
 
 using namespace std;
 
-void AddAtBeggining(NodeList*& head, int data)
+void AddAtBeggining(Node*& head, int data)
 {
-	NodeList* newNodeList = new NodeList(data);
+	Node* newNodeList = new Node(data);
 	if (!head)
 	{
 		head = newNodeList;
@@ -17,16 +18,16 @@ void AddAtBeggining(NodeList*& head, int data)
 	head = newNodeList;
 }
 
-void AddAtEnd(NodeList*& head, int data)
+void AddAtEnd(Node*& head, int data)
 {
-	NodeList* newNodeList = new NodeList(data);
+	Node* newNodeList = new Node(data);
 	if (!head)
 	{
 		head = newNodeList;
 		return;
 	}
 
-	NodeList* last = head;
+	Node* last = head;
 	while (last->Next)
 	{
 		last = last->Next;
@@ -36,9 +37,9 @@ void AddAtEnd(NodeList*& head, int data)
 	newNodeList->Prev = last;
 }
 
-void RemoveElement(NodeList*& head, int data)
+void RemoveElement(Node*& head, int data)
 {
-	NodeList* current = head;
+	Node* current = head;
 	while (current)
 	{
 		if (current->Data == data)
@@ -68,14 +69,14 @@ void RemoveElement(NodeList*& head, int data)
 	throw runtime_error("Element not found ");
 }
 
-void AddAfter(NodeList*& head, int target, int data)
+void AddAfter(Node*& head, int target, int data)
 {
-	NodeList* current = head;
+	Node* current = head;
 	while (current)
 	{
 		if (current->Data == target)
 		{
-			NodeList* newNodeList = new NodeList(data);
+			Node* newNodeList = new Node(data);
 			newNodeList->Next = current->Next;
 			newNodeList->Prev = current;
 
@@ -94,14 +95,14 @@ void AddAfter(NodeList*& head, int target, int data)
 	throw runtime_error("Target element not found ");
 }
 
-void AddBefore(NodeList*& head, int target, int data)
+void AddBefore(Node*& head, int target, int data)
 {
-	NodeList* current = head;
+	Node* current = head;
 	while (current)
 	{
 		if (current->Data == target)
 		{
-			NodeList* newNodeList = new NodeList(data);
+			Node* newNodeList = new Node(data);
 			newNodeList->Prev = current->Prev;
 			newNodeList->Next = current;
 
@@ -120,18 +121,18 @@ void AddBefore(NodeList*& head, int target, int data)
 	throw runtime_error("target element not found ");
 }
 
-void SortNodeList(NodeList*& head)
+void SortNodeList(Node*& head)
 {
 	if (!head || !head->Next)
 	{
 		return;
 	}
 
-	NodeList* sorted = nullptr;
-	NodeList* current = head;
+	Node* sorted = nullptr;
+	Node* current = head;
 	while (current)
 	{
-		NodeList* next = current->Next;
+		Node* next = current->Next;
 		if (!sorted || sorted->Data >= current->Data)
 		{
 			current->Next = sorted;
@@ -146,7 +147,7 @@ void SortNodeList(NodeList*& head)
 
 		else
 		{
-			NodeList* temp = sorted;
+			Node* temp = sorted;
 			while (temp->Next && temp->Next->Data < current->Data)
 			{
 				temp = temp->Next;
@@ -168,9 +169,9 @@ void SortNodeList(NodeList*& head)
 	head = sorted;
 }
 
-bool LinearSearch(NodeList* head, int data)
+bool LinearSearch(Node* head, int data)
 {
-	NodeList* current = head;
+	Node* current = head;
 	while (current)
 	{
 		if (current->Data == data)
@@ -184,14 +185,12 @@ bool LinearSearch(NodeList* head, int data)
 	return false;
 }
 
-void ClearNodeList(NodeList*& head)
+void ClearNodeList(Node*& head)
 {
 	while (head)
 	{
-		NodeList* temp = head;
+		Node* temp = head;
 		head = head->Next;
 		delete temp;
 	}
 }
-
-
